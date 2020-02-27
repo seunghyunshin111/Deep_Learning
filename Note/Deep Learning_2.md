@@ -2,9 +2,9 @@
 
 ## _Coursera, Andrew Ng
 
-## Basics of Neural Network Programming
+Basics of Neural Network Programming
 
-## Binary Classification
+Binary Classification
 
 - 신경망 프로그래밍 기초
 
@@ -25,3 +25,6 @@
 
   - y: Ouput labels, 출력 레이블
   - 3개의 분리된 행렬
+
+<br>
+
