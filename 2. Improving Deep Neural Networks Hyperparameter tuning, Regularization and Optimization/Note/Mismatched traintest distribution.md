@@ -27,3 +27,4 @@
 
 <br>
 
+- Bigger network, More data => Lower bias, Lower variance
