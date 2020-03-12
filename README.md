@@ -1,5 +1,5 @@
 # Deep_Learning
-Coursera, Andrew ng
+## Coursera, Andrew ng
 
 1. Neural Networks and Deep Learning
 2. Improving Deep Neural Networks Hyperparameter tuning, Regularization and Optimization
@@ -9,7 +9,7 @@ Coursera, Andrew ng
 
 <br>
 
-Multicampus, Jung eun Koo
+## Multicampus, Jung eun Koo
 
 1. TensorFlow
    - v.1.15.0, v.2.1.0
