@@ -23,7 +23,7 @@ Binary Classification
   - Logistic Regression == Binary Classification (이진 분류를 위한 알고리즘)
   - 1 (Cat) vs - (Non Cat)
 
-  - y: Ouput labels, 출력 레이블
+  - y: Output labels, 출력 레이블
   - 3개의 분리된 행렬
 
 <br>
