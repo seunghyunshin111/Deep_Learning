@@ -17,4 +17,7 @@
    - v.1.15.0, v.2.1.0
    - Machine_Learning, Deep_Learning
 2. Keras
+3. CNN
+4. RNN
+5. 경사하강법
 
