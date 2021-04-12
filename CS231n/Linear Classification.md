@@ -9,7 +9,8 @@ In the last section we introduced the problem of Image Classification, which is 
 
 
 
-```
+
+
 마지막 섹션에서는 고정 된 범주 집합의 이미지에 단일 레이블을 할당하는 작업인 이미지 분류 문제를 소개했습니다. 또한 훈련 세트의 (주석이 있는) 이미지와 비교하여 이미지에 레이블을 지정하는 kNN (K-Nearest Neighbor) 분류기를 설명했습니다. 우리가 보았듯이 kNN에는 여러 가지 단점이 있습니다.
 
 -분류기는 모든 학습 데이터를 * 기억 *하고 향후 테스트 데이터와 비교할 수 있도록 저장해야합니다. 데이터 세트의 크기가 쉽게 기가 바이트가 될 수 있기 때문에 이것은 공간 비효율적입니다.
@@ -17,9 +18,7 @@ In the last section we introduced the problem of Image Classification, which is 
 
 ** 개요 **. 이제 우리는 이미지 분류에 대한보다 강력한 접근 방식을 개발할 것이며 결국에는 전체 신경망과 컨볼루션 신경망으로 자연스럽게 확장 될 것입니다. 이 접근 방식에는 원시 데이터를 클래스 점수에 매핑하는 ** 점수 함수 **와 예측 점수와 실측 값 레이블 간의 일치를 정량화하는 ** 손실 함수 **의 두 가지 주요 구성 요소가 있습니다. 그런 다음 이를 점수 함수의 매개 변수에 대한 손실 함수를 최소화하는 최적화 문제로 캐스팅합니다.
 
-
 => KNN은 분류 모델로, 학습한 후 향후 테스트 데이터로 이미지를 분류하는 접근 방식이다. 해당 분류기는 모든 학습 데이터를 기억하고, 향후 테스트 데이터와 비교하기 때문에 데이터 세트의 크기가 기본적으로 크다. 따라서 테스트 이미지 분류 시, 이미지 분류는 모든 학습 이미지와 대조해보기 때문에 비용이 높게 든다. 
-```
 
 
 
@@ -44,7 +43,6 @@ There are a few things to note:
 
 
 
-```
 ### 이미지에서 라벨 점수로 매개 변수화 된 매핑
 
 이 접근 방식의 첫 번째 구성 요소는 이미지의 픽셀 값을 각 클래스의 신뢰도 점수에 매핑하는 점수 함수를 정의하는 것입니다. 구체적인 예를 들어 접근 방식을 개발할 것입니다. 이전과 마찬가지로 각각 레이블 yiyi와 연결된 이미지 xi∈RDxi∈RD의 학습 데이터 세트를 가정 해 보겠습니다. 여기서 i = 1… Ni = 1… N과 yi∈1… Kyi∈1… K. 즉, ** N ** 개의 예 (각각 차원이 ** D ** 인 경우)와 ** K ** 개의 개별 카테고리가 있습니다. 예를 들어 CIFAR-10에는 각각 ** D ** = 32 x 32 x 3 = 3072 픽셀이고 ** K ** = 10 인 ** N ** = 50,000 개의 이미지로 구성된 학습 세트가 있습니다. 10 개의 다른 클래스 (개, 고양이, 자동차 등)가 있습니다. 이제 원시 이미지 픽셀을 클래스 점수에 매핑하는 점수 함수 f : RD↦RKf : RD↦RK를 정의합니다.
@@ -65,10 +63,8 @@ f (xi, W, b) = Wxi + bf (xi, W, b) = Wxi + b
 
 > Convolutional Neural Networks는 위에 표시된대로 정확하게 이미지 픽셀을 점수에 매핑하지만 매핑 (f)은 더 복잡하고 더 많은 매개 변수를 포함합니다.
 
-
 => 매개변수 w(가중치), b의 설정을 통해 최종 분류기로 도달됩니다. 
 학습 데이터가 매개변수 w, b를 학습하는데 사용된다는 것이 중요 포인트입니다. 
-```
 
 
 
@@ -78,22 +74,21 @@ Notice that a linear classifier computes the score of a class as a weighted sum 
 
 ![img](https://cs231n.github.io/assets/imagemap.jpg)
 
-```
+
+
 ### 선형 분류기 해석
 
 선형 분류기는 3 개의 색상 채널 모두에서 모든 픽셀 값의 가중 합계로 클래스의 점수를 계산합니다. 이러한 가중치에 대해 설정 한 값에 따라 함수는 이미지의 특정 위치에서 특정 색상을 좋아하거나 싫어할 수 있습니다 (각 가중치의 기호에 따라 다름). 예를 들어, 이미지의 측면에 파란색이 많이있는 경우 (물에 해당 할 수 있음) "ship"클래스가 더 많을 수 있다고 상상할 수 있습니다. 그러면 "ship"분류 기가 파란색 채널 가중치 (파란색의 존재는 배의 점수를 증가)에 걸쳐 많은 양의 가중치를 가지며, 적색 / 녹색 채널의 음의 가중치 (적색 / 녹색의 존재는 점수를 감소시킵니다)를 기대할 수 있습니다.
 
-
 => 각 3가지 색상 채널은 각각 다른 이미지 분류 카테고리를 의미합니다. 각 이미지의 부분 가중 합계를 통해 최종 클래스의 점수를 계싼합니다. 가중치는 이미지의 특정 위치에서 특정 특성에 해당하는 신호에 따라 가중치를 크기를 부여합니다.
-```
 
 An example of mapping an image to class scores. For the sake of visualization, we assume the image only has 4 pixels (4 monochrome pixels, we are not considering color channels in this example for brevity), and that we have 3 classes (red (cat), green (dog), blue (ship) class). (Clarification: in particular, the colors here simply indicate 3 classes and are not related to the RGB channels.) We stretch the image pixels into a column and perform matrix multiplication to get the scores for each class. Note that this particular set of weights W is not good at all: the weights assign our cat image a very low cat score. In particular, this set of weights seems convinced that it's looking at a dog.
 
-```
 이미지를 클래스 점수에 매핑하는 예입니다. 시각화를 위해 이미지에 4 개의 픽셀 (흑백 픽셀 4 개, 간결성을 위해 예제에서는 색상 채널을 고려하지 않음) 만 있고 3 개의 클래스 (빨간색 (고양이), 녹색 (개), 파란색)가 있다고 가정합니다. (선박) 클래스). (설명 : 특히 여기의 색상은 단순히 3 개의 클래스를 나타내며 RGB 채널과 관련이 없습니다.) 이미지 픽셀을 열로 늘리고 행렬 곱셈을 수행하여 각 클래스의 점수를 얻습니다. 이 특정 가중치 세트 W는 전혀 좋지 않습니다. 가중치는 고양이 이미지에 매우 낮은 고양이 점수를 할당합니다. 특히, 이 가중치 세트는 개를 보고 있다고 확신하는 것 같습니다.
 
 => 최종적으로 가중치 세트 합의 결과를 보고 가장 좋은 수치의 카테고리 분류 값을 통해 해당 이미지의 카테고리를 결정합니다. 
-```
+
+
 
 **Analogy of images as high-dimensional points.** Since the images are stretched into high-dimensional column vectors, we can interpret each image as a single point in this space (e.g. each image in CIFAR-10 is a point in 3072-dimensional space of 32x32x3 pixels). Analogously, the entire dataset is a (labeled) set of points.
 
@@ -105,7 +100,8 @@ Cartoon representation of the image space, where each image is a single point, a
 
 As we saw above, every row of WW is a classifier for one of the classes. The geometric interpretation of these numbers is that as we change one of the rows of WW, the corresponding line in the pixel space will rotate in different directions. The biases bb, on the other hand, allow our classifiers to translate the lines. In particular, note that without the bias terms, plugging in xi=0xi=0 would always give score of zero regardless of the weights, so all lines would be forced to cross the origin.
 
-```
+
+
 ** 이미지를 고차원 점으로 분석합니다. ** 이미지가 고차원 열 벡터로 확장되므로 각 이미지를 이 공간의 단일 점으로 해석 할 수 있습니다 (예 : CIFAR-10의 각 이미지는 3072의 점입니다. 32x32x3 픽셀의 차원 공간). 마찬가지로 전체 데이터 세트는 (레이블이 지정된) 포인트 세트입니다.
 
 각 클래스의 점수를 모든 이미지 픽셀의 가중치 합계로 정의 했으므로 각 클래스 점수는 이 공간에 대한 선형 함수입니다. 3072 차원 공간을 시각화 할 수는 없지만 모든 차원을 2 차원으로 압축하는 것을 상상한다면 분류기가 수행 할 작업을 시각화 할 수 있습니다.
@@ -113,9 +109,9 @@ As we saw above, every row of WW is a classifier for one of the classes. The geo
 
 위에서 보았 듯이 W의 모든 행은 클래스 중 하나에 대한 분류입니다. 이 숫자의 기하학적 해석은 W의 행 중 하나를 변경하면 픽셀 공간의 해당 선이 다른 방향으로 회전한다는 것입니다. 반면 편향 b는 분류기가 라인을 번역 할 수 있도록합니다. 특히 편향 항이 없으면 xi = 0을 연결하면 가중치에 관계 없이 항상 점수가 0이 되므로 모든 선이 원점을 가로지르도록 강제됩니다.
 
-
 => 이미지를 각 가중치 합계에 따라 분류하게 됩니다. 
-```
+
+
 
 **Interpretation of linear classifiers as template matching.** Another interpretation for the weights WW is that each row of WW corresponds to a *template* (or sometimes also called a *prototype*) for one of the classes. The score of each class for an image is then obtained by comparing each template with the image using an *inner product* (or *dot product*) one by one to find the one that “fits” best. With this terminology, the linear classifier is doing template matching, where the templates are learned. Another way to think of it is that we are still effectively doing Nearest Neighbor, but instead of having thousands of training images we are only using a single image per class (although we will learn it, and it does not necessarily have to be one of the images in the training set), and we use the (negative) inner product as the distance instead of the L1 or L2 distance.
 
@@ -125,7 +121,6 @@ Skipping ahead a bit: Example learned weights at the end of learning for CIFAR-1
 
 Additionally, note that the horse template seems to contain a two-headed horse, which is due to both left and right facing horses in the dataset. The linear classifier *merges* these two modes of horses in the data into a single template. Similarly, the car classifier seems to have merged several modes into a single template which has to identify cars from all sides, and of all colors. In particular, this template ended up being red, which hints that there are more red cars in the CIFAR-10 dataset than of any other color. The linear classifier is too weak to properly account for different-colored cars, but as we will see later neural networks will allow us to perform this task. Looking ahead a bit, a neural network will be able to develop intermediate neurons in its hidden layers that could detect specific car types (e.g. green car facing left, blue car facing front, etc.), and neurons on the next layer could combine these into a more accurate car score through a weighted sum of the individual car detectors.
 
-```
 ** 선형 분류기를 템플릿 일치로 해석 ** 가중치 W에 대한 또 다른 해석은 W의 각 행이 클래스 중 하나에 대한 * 템플릿 * (또는 * 프로토 타입 *이라고도 함)에 해당한다는 것입니다. 이미지에 대한 각 클래스의 점수는 내적을 사용하여 각 템플릿을 이미지와 비교하여 가장 "적합한" 항목을 찾아서 얻습니다. 이 용어를 사용하여 선형 분류기는 템플릿을 학습하는 템플릿 일치를 수행합니다. 이를 생각하는 또 다른 방법은 우리가 여전히 Nearest Neighbor를 효과적으로 수행하고 있지만 수천 개의 훈련 이미지를 갖는 대신 클래스 당 하나의 이미지만 사용한다는 것입니다 (우리가 학습 할 것이지만 반드시 다음 중 하나일 필요는 없습니다.) 학습 세트의 이미지), L1 또는 L2 거리 대신 (음수) 내적을 거리로 사용합니다.
 
 조금 앞으로 건너 뛰기 : CIFAR-10 학습이 끝날 때 학습 된 가중치 예제. 예를 들어 ship 템플릿에는 예상대로 많은 파란색 픽셀이 포함되어 있습니다. 따라서 이 템플릿은 내부 제품이있는 바다의 선박 이미지와 일치하면 높은 점수를 제공합니다.
@@ -136,7 +131,8 @@ Additionally, note that the horse template seems to contain a two-headed horse, 
 => 선형 분류기를 사용하여 템플릿 일치를 수행합니다. 테스트 이미지에 대한 각 클래스 점수 합은 내적을 사용하여 각 템플릿을 이미지와 비교하여 최종적으로 가장 적합한 항목을 설정합니다. 이 방법은 여전히 Nearest Neighbor를 효과적으로 수행한다고 볼 수 있지만, 한 가지 특징은 / 수천 개의 훈련 이미지를 갖는 위의 단점 대신 / 클래스 당 하나의 이미지만 사용한다는 점에서 이전 단점을 극복한 방법입니다. 
 
 => 선형 분류기는 너무 약하기 때문에 빨간색 자동차의 템플릿이라면 / 다른 색상의 자동차를 적절하게 설명 할 수는 없다. 다만, 향후 신경망을 통해서는 해당 작업을 보완할 수 있다. 신경망은 특정 자동차 유형 (색상 / 각도 등)을 감지할 수 있다. 이는 중간 뉴런에서 이들을 판단하는 것을 개발할 수 있기 때문이다. 따라서 개별 자동차 감지기의 가중치 합계를 통해 결국 더 정확한 자동차 점수를 변환합니다. 
-```
+
+
 
 **Bias trick.** Before moving on we want to mention a common simplifying trick to representing the two parameters W,bW,b as one. Recall that we defined the score function as:
 
@@ -152,7 +148,6 @@ With our CIFAR-10 example, xixi is now [3073 x 1] instead of [3072 x 1] - (with 
 
 Illustration of the bias trick. Doing a matrix multiplication and then adding a bias vector (left) is equivalent to adding a bias dimension with a constant of 1 to all input vectors and extending the weight matrix by 1 column - a bias column (right). Thus, if we preprocess our data by appending ones to all vectors we only have to learn a single matrix of weights instead of two matrices that hold the weights and the biases.
 
-```
 ** 바이어스 트릭. ** 계속 진행하기 전에 두 개의 매개 변수 W, bW, b를 하나로 표현하는 일반적인 단순화 트릭을 언급하고자합니다. 점수 함수를 다음과 같이 정의했습니다.
 
 f (xi, W, b) = Wxi + bf (xi, W, b) = Wxi + b
@@ -169,17 +164,13 @@ CIFAR-10 예제에서 xi는 이제 [3072 x 1] 대신 [3073 x 1]입니다 (추가
 => 매개 변수를 둘 다 유지하는 단일 행렬로 결합하고 / 추가 차원을 사용하면 새로운 점수 함수는 단일 행렬 곱셈으로 단순화됩니다. 
 
 => 행렬 곱셈을 수행한 다음 편향 벡터를 추가하는 것은 모든 입력 벡터에 상수가 1인 편향 차원을 추가하고 가중치 행렬을 편향 열 1개씩 확정하는 것과 같다. 따라서 모든 벡터에 1을 추가하여 데이터 전처리를 하면 가중치 / 편향을 포함하는 두 개의 행렬 대신 "단일 가중치 행렬"만 학습하면 된다. (어렵)
-```
 
 **Image data preprocessing.** As a quick note, in the examples above we used the raw pixel values (which range from [0…255]). In Machine Learning, it is a very common practice to always perform normalization of your input features (in the case of images, every pixel is thought of as a feature). In particular, it is important to **center your data** by subtracting the mean from every feature. In the case of images, this corresponds to computing a *mean image* across the training images and subtracting it from every image to get images where the pixels range from approximately [-127 … 127]. Further common preprocessing is to scale each input feature so that its values range from [-1, 1]. Of these, zero mean centering is arguably more important but we will have to wait for its justification until we understand the dynamics of gradient descent.
 
-```
 ** 이미지 데이터 전처리. ** 위의 예에서는 원시 픽셀 값 ([0… 255] 범위)을 사용했습니다. 머신러닝에서는 항상 입력 특성의 정규화를 수행하는 것이 매우 일반적인 관행입니다 (이미지의 경우 모든 픽셀이 특성으로 간주 됨). 특히 모든 특성에서 평균을 빼서 ** 데이터 중심 **을 지정하는 것이 중요합니다. 이미지의 경우, 이것은 훈련 이미지에서 * 평균 이미지 *를 계산하고 모든 이미지에서 이를 빼서 픽셀 범위가 약 [-127… 127] 인 이미지를 얻는 것에 해당합니다. 더 일반적인 전처리는 각 입력 특성의 값을 [-1, 1] 범위로 조정하는 것입니다. 이 중 제로 평균 중심화가 더 중요하지만 경사 하강 법의 역할을 이해할 때까지 정당화를 기다려야합니다.
-
 
 => 머신러닝에서는 항상 입력 특성의 정규화를 수행하는 것이 일반적인 관행.
 => 모든 특성에서 평균을 빼 데이터 중심을 지정하는 것이 중요하다. 이를 이미지로 대조해보면, 훈련 이미지에서 평균 이미지를 계산하고, 모든 이미지에서 이를 빼 픽셀 범위의 데이터 중심을 지정하는 것이다. 더 일반적으로는 각 입력 특성의 값을 [-1, 1] 범위로 조정하는 것이다.
-```
 
 ### Loss function
 
@@ -187,7 +178,6 @@ In the previous section we defined a function from the pixel values to class sco
 
 For example, going back to the example image of a cat and its scores for the classes “cat”, “dog” and “ship”, we saw that the particular set of weights in that example was not very good at all: We fed in the pixels that depict a cat but the cat score came out very low (-96.8) compared to the other classes (dog score 437.9 and ship score 61.95). We are going to measure our unhappiness with outcomes such as this one with a **loss function** (or sometimes also referred to as the **cost function** or the **objective**). Intuitively, the loss will be high if we’re doing a poor job of classifying the training data, and it will be low if we’re doing well.
 
-```
 ### 손실 함수
 
 이전 섹션에서 우리는 픽셀 값에서 클래스 점수로 함수를 정의했으며, 이는 가중치 W 세트로 매개 변수화되었습니다. 더욱이 우리는 데이터 (xi, yi) (xi, yi) (고정되고 주어짐)에 대한 통제권이 없다는 것을 알았습니다. 그러나 우리는 이러한 가중치를 통제 할 수 있으며 예측 된 클래스 점수는 훈련 데이터의 실측 레이블과 일치합니다.
@@ -198,7 +188,6 @@ For example, going back to the example image of a cat and its scores for the cla
 => 이전 섹션에서 픽셀 값을 통해 클래스 점수로 함수를 정의했다면, 이는 가중치 W 세트로 매개 변수화 되었다. 우리는 가중치를 통제하여 예측된 클래스 점수가 훈련 데이터의 실측 레이블과 일치하게 만들었다.
 
 => 학습 데이터 분류 작업을 제대로 수행하면 손실이 적다.
-```
 
 #### Multiclass Support Vector Machine loss
 
@@ -208,7 +197,6 @@ Let’s now get more precise. Recall that for the i-th example we are given the 
 
 Li=∑j≠yimax(0,sj−syi+Δ)Li=∑j≠yimax(0,sj−syi+Δ)
 
-```
 #### 다중 클래스 지원 벡터 머신 손실
 
 손실 함수의 세부 사항을 정의하는 방법에는 여러 가지가 있습니다. 첫 번째 예로, ** Multiclass Support Vector Machine ** (SVM) 손실이라고하는 일반적으로 사용되는 손실을 먼저 개발합니다. SVM 손실은 SVM이 각 이미지에 대한 올바른 클래스가 고정 마진 Δ만큼 잘못된 클래스보다 높은 점수를 갖도록 "원"하도록 설정됩니다. 위에서 한 것처럼 손실 함수를 의인화하는 것이 때때로 도움이 됩니다. SVM은 결과가 더 낮은 손실 (좋은)을 산출한다는 의미에서 특정 결과를 "원"합니다.
@@ -217,9 +205,7 @@ Li=∑j≠yimax(0,sj−syi+Δ)Li=∑j≠yimax(0,sj−syi+Δ)
 
 Li = ∑j ≠ yimax (0, sj−syi + Δ) Li = ∑j ≠ yimax (0, sj−syi + Δ)
 
-
 => 손실함수 중 하나로 SVM 모델이 있다. SVM 손실은 각 이미지에 대한 올바른 클래스가 고정 마진만큼 잘못된 클래스보다 높은 점수를 갖도록 설정하는 것이다. 
-```
 
 **Example.** Lets unpack this with an example to see how it works. Suppose that we have three classes that receive the scores s=[13,−7,11]s=[13,−7,11], and that the first class is the true class (i.e. yi=0yi=0). Also assume that ΔΔ (a hyperparameter we will go into more detail about soon) is 10. The expression above sums over all incorrect classes (j≠yij≠yi), so we get two terms:
 
@@ -241,9 +227,6 @@ A last piece of terminology we’ll mention before we finish with this section i
 
 The Multiclass Support Vector Machine "wants" the score of the correct class to be higher than all other scores by at least a margin of delta. If any class has a score inside the red region (or higher), then there will be accumulated loss. Otherwise the loss will be zero. Our objective will be to find the weights that will simultaneously satisfy this constraint for all examples in the training data and give a total loss that is as low as possible.
 
-
-
-```
 * 예 ** 작동 방식을 확인하기 위해 예제와 함께 압축을 풀어 보겠습니다. s = [13, −7,11] s = [13, −7,11] 점수를받는 세 개의 클래스가 있고 첫 번째 클래스가 실제 클래스 (i.e. yi = 0yi = 0)라고 가정합니다. 또한 Δ (곧 자세히 설명 할 하이퍼 파라미터)가 10이라고 가정합니다. 위의 표현식은 모든 잘못된 클래스 (j ≠ yij ≠ yi)에 대해 합산되므로 두 가지 항을 얻습니다.
 
 Li = max (0, −7−13 + 10) + max (0,11−13 + 10) Li = max (0, −7−13 + 10) + max (0,11−13 + 10)
@@ -269,7 +252,6 @@ Multiclass Support Vector Machine은 올바른 클래스의 점수가 다른 모
 
 
 ==> MSVM은 올바른 클래스의 점수가 다른 모든 점수보다 적어도 델타의 여유가 있기를 바라는 모델입니다. 어떤 클래스라도 마진 내에 점수가 있으면 '누적 손실'이 발생합니다. 이 모델의 목표는 훈련 데이터의 모든 예제에 대해 제약 조건을 충족하면서, ** 가능한 낮은 총 손실 **을 제공할 '가중치'를 찾는 것입니다.
-```
 
 
 
