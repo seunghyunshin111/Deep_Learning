@@ -11,7 +11,7 @@
 
 <br>
 
-## Multicampus, Jung eun Koo
+## Campus, Jung eun Koo
 
 1. TensorFlow
    - v.1.15.0, v.2.1.0
