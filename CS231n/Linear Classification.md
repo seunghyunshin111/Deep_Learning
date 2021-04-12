@@ -287,7 +287,7 @@ Multiclass Support Vector Machine은 올바른 클래스의 점수가 다른 모
 
 
 
-
+<br>
 
 ## SVM 서포트 벡터 머신
 
@@ -295,7 +295,7 @@ Multiclass Support Vector Machine은 올바른 클래스의 점수가 다른 모
 2. 손실을 최소화 한다. 
 3. 마진 안 혹은 데이터 분류 중 이상치가 속해있을 경우 파라미터(C) 값 조정을 통해 마진의 크기를 최적화한다.
 
-
+<br>
 
 ## Kernel SVM
 
@@ -308,7 +308,7 @@ Multiclass Support Vector Machine은 올바른 클래스의 점수가 다른 모
 
 3. 고차원 상에서 직선으로 분류되었지만, 다시 저차원 상에서 확인해보면 곡선처럼 보인다. 그렇지만 이는 직선으로 분류한 것임.
 
-
+<br>
 
 ## Multiclass SVM
 
