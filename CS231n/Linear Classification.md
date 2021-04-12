@@ -287,5 +287,30 @@ Multiclass Support Vector Machine은 올바른 클래스의 점수가 다른 모
 
 
 
-<img width="598" alt="Screen Shot 2021-04-12 at 6 12 37 PM" src="https://user-images.githubusercontent.com/57430754/114380668-48f7e400-9bc5-11eb-9236-5411c95b3da2.png">
+
+
+## SVM 서포트 벡터 머신
+
+1. 마진을 최대화 한다. 
+2. 손실을 최소화 한다. 
+3. 마진 안 혹은 데이터 분류 중 이상치가 속해있을 경우 파라미터(C) 값 조정을 통해 마진의 크기를 최적화한다.
+
+
+
+## Kernel SVM
+
+1. 저차원에서 직선이 나눠지지 않는 않는 경우 고차원에서 확인해본다.
+2. <img width="598" alt="Screen Shot 2021-04-12 at 6 12 37 PM" src="https://user-images.githubusercontent.com/57430754/114380668-48f7e400-9bc5-11eb-9236-5411c95b3da2.png">
+
 <img width="360" alt="Screen Shot 2021-04-12 at 6 12 45 PM" src="https://user-images.githubusercontent.com/57430754/114380678-4ac1a780-9bc5-11eb-9cb1-9d2af7ea1e5b.png">
+
+사진과 같이 고차원에서 직선으로 나눠지는 경우 확인. (SVM은 직선 분류만 가능)
+
+3. 고차원 상에서 직선으로 분류되었지만, 다시 저차원 상에서 확인해보면 곡선처럼 보인다. 그렇지만 이는 직선으로 분류한 것임.
+
+
+
+## Multiclass SVM
+
+1. 1대 all 분류로 볼 수 있음.
+2. a, b, c가 있으면, a: b, c 등으로 볼 수 있음
