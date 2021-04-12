@@ -287,9 +287,5 @@ Multiclass Support Vector Machine은 올바른 클래스의 점수가 다른 모
 
 
 
-![Screen Shot 2021-04-12 at 6.12.37 PM](/Users/seunghyun/Desktop/Screen Shot 2021-04-12 at 6.12.37 PM.png)
-
-
-
-![Screen Shot 2021-04-12 at 6.12.45 PM](/Users/seunghyun/Desktop/Screen Shot 2021-04-12 at 6.12.45 PM.png)
-
+<img width="598" alt="Screen Shot 2021-04-12 at 6 12 37 PM" src="https://user-images.githubusercontent.com/57430754/114380668-48f7e400-9bc5-11eb-9236-5411c95b3da2.png">
+<img width="360" alt="Screen Shot 2021-04-12 at 6 12 45 PM" src="https://user-images.githubusercontent.com/57430754/114380678-4ac1a780-9bc5-11eb-9cb1-9d2af7ea1e5b.png">
